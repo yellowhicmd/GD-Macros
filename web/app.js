@@ -1,5 +1,6 @@
 /* Dash Archive starter. Set DOWNLOAD_BASE_URL only to a public directory containing approved release copies. */
-const DOWNLOAD_BASE_URL = 'macros/'; // Example: 'https://example.com/macros/' — must end in /
+const DOWNLOAD_BASE_URL =
+  'https://raw.githubusercontent.com/yellowhicmd/GD-Macros/main/macros/'; // Example: 'https://example.com/macros/' — must end in /
 const state = { levels: [], query: '', sort: 'name-asc' };
 const $ = (id) => document.getElementById(id);
 const grid = $('levelGrid');
@@ -37,7 +38,47 @@ function showDetails(level) {
     <div class="detail-list"><div class="detail-row"><span>Level ID</span><strong>${esc(id)}</strong></div>${level.host ? `<div class="detail-row"><span>Host</span><strong>${esc(level.host)}</strong></div>` : ''}<div class="detail-row"><span>Macro filename</span><strong>${esc(file)}</strong></div><div class="detail-row"><span>Format</span><strong>${hasFile(level) ? esc(level.file.split('.').slice(1).join('.').toUpperCase()) : 'Unavailable'}</strong></div></div>
     <button class="download-button" id="downloadButton" ${canDownload ? '' : 'disabled'}>${canDownload ? '↓ Download macro' : hasFile(level) ? 'Download not configured yet' : 'Macro file not listed'}</button>
     <p class="download-note">${canDownload ? 'You will receive the approved public release file.' : 'Downloads will be enabled once a public delivery location for approved macro files is configured. Private repository files are not exposed.'}</p>`;
-  if (canDownload) $('downloadButton').addEventListener('click', () => { const a = document.createElement('a'); a.href = DOWNLOAD_BASE_URL.replace(/\/?$/, '/') + encodeURIComponent(level.file).replace(/%2F/g, '/'); a.download = level.file; a.rel = 'noopener'; document.body.appendChild(a); a.click(); a.remove(); });
+  if (canDownload) {
+  $('downloadButton').addEventListener('click', async () => {
+    const button = $('downloadButton');
+    button.disabled = true;
+    button.textContent = 'Downloading…';
+
+    try {
+      const url = DOWNLOAD_BASE_URL + level.file
+        .split('/')
+        .map(encodeURIComponent)
+        .join('/');
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`GitHub returned ${response.status}`);
+      }
+
+      const blob = await response.blob();
+      const objectUrl = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+
+      a.href = objectUrl;
+      a.download = level.file.split('/').pop();
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      setTimeout(() => URL.revokeObjectURL(objectUrl), 60000);
+      button.textContent = '✓ Download started';
+    } catch (error) {
+      console.error('Macro download failed:', error);
+      button.textContent = 'Download failed — try again';
+      alert(
+        'Could not download this macro. Check that the file exists in the GitHub macros folder and that its filename matches levels.json exactly.'
+      );
+    } finally {
+      button.disabled = false;
+    }
+  });
+  }
   dialog.showModal();
 }
 $('searchInput').addEventListener('input', e => { state.query = e.target.value; render(); });
