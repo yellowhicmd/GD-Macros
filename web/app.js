@@ -1,5 +1,5 @@
 /* Dash Archive starter. Set DOWNLOAD_BASE_URL only to a public directory containing approved release copies. */
-const DOWNLOAD_BASE_URL = ''; // Example: 'https://example.com/macros/' — must end in /
+const DOWNLOAD_BASE_URL = 'macros/'; // Example: 'https://example.com/macros/' — must end in /
 const state = { levels: [], query: '', sort: 'name-asc' };
 const $ = (id) => document.getElementById(id);
 const grid = $('levelGrid');
