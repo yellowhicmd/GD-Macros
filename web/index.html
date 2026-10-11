@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#d6e3ff"><meta name="description" content="A community library of Geometry Dash macros.">
+  <title>Dash Archive — Geometry Dash Macro Library</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Dash Archive home"><span class="brand-mark">D</span><span>Dash Archive</span></a>
+    <nav><a href="#levels" class="nav-active">Library</a><a href="#about">About</a></nav>
+    <button id="themeToggle" class="icon-button" aria-label="Toggle theme" title="Toggle light/dark theme"><span id="themeIcon">☾</span></button>
+  </header>
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy"><div class="eyebrow"><span class="pulse"></span> GEOMETRY DASH · MACRO LIBRARY</div>
+        <h1>Your next run,<br><span>archived.</span></h1>
+        <p>A searchable library of macros for Geometry Dash levels. Find a level, check its details, and get its associated file.</p>
+        <a class="hero-link" href="#levels">Explore the library <span>↘</span></a>
+      </div>
+      <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="cube cube-back"></div><div class="cube cube-front"><span></span></div><div class="spark spark-one">✦</div><div class="spark spark-two">✧</div></div>
+    </section>
+    <section class="stats" aria-label="Library statistics"><div><span class="stat-number" id="levelCount">—</span><span class="stat-label">LEVELS LISTED</span></div><div><span class="stat-number" id="fileCount">—</span><span class="stat-label">MACRO FILES</span></div><div><span class="stat-number">GD</span><span class="stat-label">COMMUNITY LIBRARY</span></div></section>
+    <section id="levels" class="library-section">
+      <div class="section-heading"><div><div class="eyebrow">THE COLLECTION</div><h2>Macro library</h2><p>Browse levels from the collection.</p></div><span class="count-pill" id="resultCount">Loading…</span></div>
+      <div class="toolbar"><label class="search-box"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search levels, creators, IDs…" autocomplete="off" aria-label="Search levels"></label>
+        <label class="select-wrap"><span class="sr-only">Sort levels</span><select id="sortSelect"><option value="name-asc">Name A–Z</option><option value="name-desc">Name Z–A</option><option value="creator-asc">Creator A–Z</option></select></label>
+      </div>
+      <div id="levelGrid" class="level-grid" aria-live="polite"></div>
+      <div id="emptyState" class="empty-state" hidden><span>⌕</span><h3>No matching levels</h3><p>Try a different name, creator, or level ID.</p><button id="clearSearch" class="text-button">Clear search</button></div>
+      <div class="footnote">Level details and filenames are based on the supplied collection document. Missing files are marked unavailable.</div>
+    </section>
+    <section id="about" class="about-card"><div class="about-icon">✦</div><div><div class="eyebrow">ABOUT THIS PROJECT</div><h2>Built for the community.</h2><p>This is an independent fan-made macro index and is not affiliated with RobTop Games or the creators of the listed levels. Please respect each creator’s work and the rules of any community where you use macros.</p></div></section>
+  </main>
+  <footer><a class="brand footer-brand" href="#top"><span class="brand-mark">D</span><span>Dash Archive</span></a><span>Made for Geometry Dash fans · Unofficial community project</span><a href="#top">Back to top ↑</a></footer>
+  <dialog id="levelDialog" class="level-dialog"><button id="closeDialog" class="dialog-close" aria-label="Close details">×</button><div id="dialogContent"></div></dialog>
+  <script src="app.js"></script>
+</body></html>
