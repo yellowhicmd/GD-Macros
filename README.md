@@ -1,7 +1,6 @@
 # GD-Macros
 
 A collection of downloadable macros to make tasks faster and easier.  
-[Download here](https://gd-macros.pages.dev)
 
 ---
 
