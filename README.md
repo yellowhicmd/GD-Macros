@@ -5,7 +5,7 @@ A collection of downloadable macros to make tasks faster and easier.
 ---
 
 ## Contents
-- Organized macros stored in the `web/` folder
+- Organized macros stored in the `macros/` folder
 - Easy access through the live site
 - Lightweight and ready to use
 
